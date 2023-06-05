@@ -17,7 +17,7 @@ function DetalleLibro() {
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
 
-    {/* <Link to="/DetalleLibro"></Link>  */}
+   
     
     </Card>
     
