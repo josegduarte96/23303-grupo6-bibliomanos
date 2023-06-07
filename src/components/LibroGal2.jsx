@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import apiOL from "../api/apiService"
 
 const LibreriaOnline = () => {
   const [romanceBooks, setRomanceBooks] = useState([])
@@ -9,8 +10,8 @@ const LibreriaOnline = () => {
   const [booksPerPage] = useState(12)
 
   useEffect(() => {
-    fetchBooks("romance", setRomanceBooks)
-    fetchBooks("juvenile fiction", setChildrenBooks)
+    getBooks("romance", setRomanceBooks)
+    getBooks("juvenile fiction", setChildrenBooks)
   }, [])
 
   const fetchBooks = (query, callback) => {
@@ -25,6 +26,14 @@ const LibreriaOnline = () => {
       .catch((error) => {
         console.log("Error en el fetching data de Open Library API:", error)
       })
+  }
+
+  const getBooks = async (query, callback) => {
+    const { data } = await apiOL.get(`search.json?q=${query}&sort=new&limit=150`)
+    if (data.docs) {
+      const booksWithCovers = data.docs.filter((book) => book.cover_i)
+      callback(booksWithCovers)
+    }
   }
 
   // const handleSearch = () => {

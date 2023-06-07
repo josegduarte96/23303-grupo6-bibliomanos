@@ -63,9 +63,14 @@ function Navbar() {
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              {/* <a className="nav-link" aria-current="page" href="#">
                 Contacto
-              </a>
+              </a> */}
+              {
+                <Link className="nav-link" to={"/contacto"}>
+                  Contacto
+                </Link>
+              }
             </li>
           </ul>
           <form className="d-flex mx-1" role="search">
