@@ -1,0 +1,39 @@
+$primary: #a73916;
+$secondary: #f5e1a7;
+
+/* Boostrap */
+@import "../node_modules/bootstrap/scss/bootstrap";
+/* Fuente TITULO  */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
+/* Fuente Section principal */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,600;1,700&display=swap");
+
+.title {
+  font-family: "Fira Code", monospace;
+  font-weight: bold;
+}
+
+.main-content {
+  height: 40vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: "Raleway", sans-serif;
+  font-style: italic;
+  position: relative;
+  color: white;
+}
+
+.main-content::before {
+  content: ""; /* Agrega contenido vacío para que la pseudo-clase sea visible */
+  position: absolute; /* Establece el posicionamiento para la pseudo-clase */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/main-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(0.5); /* Establece la opacidad del fondo */
+  z-index: -1; /* Coloca la pseudo-clase detrás del contenido del elemento principal */
+}
