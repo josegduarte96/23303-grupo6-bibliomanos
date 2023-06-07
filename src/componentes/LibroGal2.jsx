@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 //import { BrowserRouter as Router, Link } from "react-router-dom";
-//import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 
 import "slick-carousel/slick/slick-theme.css";
@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./styles.css";
 
 const LibreriaOnline = () => {
+
   const [romanceBooks, setRomanceBooks] = useState([]);
   const [childrenBooks, setChildrenBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -199,9 +200,12 @@ const LibreriaOnline = () => {
             </Slider>
             </div>
         </div>
+        {/* <Link to="/LibroGal2"></Link> */}
         </div>
    //**  </Router>*/
-  );
-};
+    
+     );
+     
+     };
 
 export default LibreriaOnline;
