@@ -20,3 +20,25 @@ const Info = ({ selectedBook, handleBack }) => {
 };
 
 export default Info;
+
+{/** //App.js
+import React from 'react';
+import './App.css';
+import LibreriaOnline from './componentes/LibroGal1';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+function App() {
+  return (
+    <div className="App">
+      <h2>mensaje de prueba arriba</h2>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LibreriaOnline />} />
+        </Routes>
+      </Router>
+      <h3>mensaje de prueba abajo</h3>
+    </div>
+  );
+}
+export default App;
+*/}
