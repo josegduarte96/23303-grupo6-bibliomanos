@@ -3,7 +3,7 @@ import UsersButton from "./UsersButton"
 import logo from "../assets/logoempty.png"
 import { Link } from "react-router-dom"
 
-function Navbar() {
+function Navbar(correoUsuario) {
   return (
     <nav
       className="navbar navbar-expand-lg fs-5 navbar-dark bg-primary"
@@ -25,7 +25,7 @@ function Navbar() {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <UsersButton className={"d-block d-sm-none"} />
+          <UsersButton nombreUsuario={correoUsuario} className={"d-block d-sm-none"} />
         </div>
         {/* Navbar Content */}
         <div className="collapse navbar-collapse justify-content-end px-3" id="navbarSupportedContent">
@@ -78,7 +78,7 @@ function Navbar() {
             <button className="btn btn-outline-warning" type="submit">
               <MagnifyingGlassIcon className="text-white" style={{ width: "20px", height: "25px" }} />
             </button>
-            <UsersButton className={"d-none d-md-block"} />
+            <UsersButton nombreUsuario={correoUsuario} className={"d-none d-md-block"} />
             {
               <Link className="btn btn-secondary" to={"/login"}>
                 Login

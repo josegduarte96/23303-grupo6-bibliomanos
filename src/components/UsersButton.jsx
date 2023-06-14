@@ -1,6 +1,10 @@
 import { UserIcon } from "@heroicons/react/24/solid"
 // eslint-disable-next-line react/prop-types
-function UsersButton({ className }) {
+import firebaseApp from "../usuariosBD"
+import { getAuth, signOut } from "firebase/auth"
+
+const auth = getAuth(firebaseApp)
+function UsersButton({correoUsuario, className }) {
   console.log(className)
   return (
     <>
@@ -14,12 +18,12 @@ function UsersButton({ className }) {
         </button>
         <ul className="dropdown-menu">
           <li className="px-3 fw-semibold">Jose Duarte</li>
-          <li className="px-3 fw-semibold">jose.duarte@email.com</li>
+          <li className="px-3 fw-semibold">{correoUsuario}</li>
           <li>
             <hr className="dropdown-divider" />
           </li>
           <li className="px-2">
-            <a className="btn btn-danger d-block" href="#">
+            <a className="btn btn-danger d-block" href="#" onClick={() => signOut(auth)}>
               Cerrar Sesión
             </a>
           </li>
