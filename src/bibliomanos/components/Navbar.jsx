@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import UsersButton from "./UsersButton"
-import logo from "../assets/logoempty.png"
+import logo from "../../assets/logoempty.png"
 import { Link } from "react-router-dom"
 
 function Navbar() {
@@ -31,9 +31,9 @@ function Navbar() {
         <div className="collapse navbar-collapse justify-content-end px-3" id="navbarSupportedContent">
           <ul className="navbar-nav flex-grow-1 justify-content-center">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link className="nav-link active" aria-current="page" to="/">
                 Inicio
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -46,19 +46,19 @@ function Navbar() {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/categories/science">
                     Ciencia
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/categories/tecnology">
                     Tecnología
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/categories/cinema">
                     Cine
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -67,7 +67,7 @@ function Navbar() {
                 Contacto
               </a> */}
               {
-                <Link className="nav-link" to={"/contacto"}>
+                <Link className="nav-link" to={"/contact"}>
                   Contacto
                 </Link>
               }
@@ -79,11 +79,6 @@ function Navbar() {
               <MagnifyingGlassIcon className="text-white" style={{ width: "20px", height: "25px" }} />
             </button>
             <UsersButton className={"d-none d-md-block"} />
-            {
-              <Link className="btn btn-secondary" to={"/login"}>
-                Login
-              </Link>
-            }
           </form>
         </div>
       </div>
