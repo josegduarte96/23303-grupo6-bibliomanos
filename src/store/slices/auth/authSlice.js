@@ -4,16 +4,27 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    authenticating: true,
+    isLoading: false,
   },
   reducers: {
-    increment: (state /* action */) => {
-      state.counter += 1
+    setIsLoading: (state) => {
+      state.isLoading = true
+    },
+    login: (state, action /* action */) => {
+      state.user = action.payload.user
+      state.isLoading = action.payload.isLoading
+    },
+    logout: (state) => {
+      state.user = null
+    },
+    register: (state, action) => {
+      state.user = action.payload.user
+      state.isLoading = action.payload.isLoading
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment } = authSlice.actions
+export const { login, logout, register, setIsLoading } = authSlice.actions
 
 export default authSlice.reducer
