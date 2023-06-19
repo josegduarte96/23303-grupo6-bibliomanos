@@ -10,10 +10,10 @@ import "./styles/styles.scss"
 
 ReactDOM.createRoot(document.getElementById("app")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter>
         <BibliomanosApp />
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 )

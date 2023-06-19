@@ -13,6 +13,21 @@ $secondary: #f5e1a7;
   font-weight: bold;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.user-photo {
+  &:hover {
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+  & > img:hover {
+    transition: ease-in 0.2s;
+    transform: scale(0.9);
+  }
+}
+
 .main-content {
   height: 40vh;
   width: 100vw;
