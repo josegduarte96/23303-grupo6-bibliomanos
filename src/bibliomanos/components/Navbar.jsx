@@ -14,7 +14,7 @@ function Navbar() {
           <p className="text-center m-0 mx-1 title text-secondary">Bibliomanos</p>
         </div>
         {/* Navbar Content */}
-        <div className="collapse navbar-collapse justify-content-end px-3 py-3" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse justify-content-end px-1 py-1" id="navbarSupportedContent">
           <ul className="navbar-nav flex-grow-1 justify-content-center">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
@@ -78,7 +78,7 @@ function Navbar() {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <UsersButton className={"d-inline"} />
+          <UsersButton className={"d-inline "} />
         </div>
       </div>
     </nav>

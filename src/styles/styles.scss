@@ -18,14 +18,8 @@ $secondary: #f5e1a7;
 }
 
 .user-photo {
-  &:hover {
-    border: 1px solid white;
-    border-radius: 50%;
-  }
-  & > img:hover {
-    transition: ease-in 0.2s;
-    transform: scale(0.9);
-  }
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
 .main-content {

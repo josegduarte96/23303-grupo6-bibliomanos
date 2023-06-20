@@ -23,7 +23,7 @@ const RegisterPage = () => {
 
   return (
     <AuthLayout title={"Registrar un usuario"}>
-      <form onSubmit={onSubmit} className="d-flex flex-column">
+      <form onSubmit={onSubmit} className="d-flex flex-column animate__animated animate__fadeIn">
         <div className="mb-1">
           <label htmlFor="inputName" className="form-label mb-0">
             Nombre

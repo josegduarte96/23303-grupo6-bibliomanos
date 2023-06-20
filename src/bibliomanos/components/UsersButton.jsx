@@ -17,9 +17,9 @@ function UsersButton({ className }) {
           src={photoURL}
           className="rounded-circle pointer"
           alt="photo-user"
-          style={{ width: "auto", height: "45px", fontSize: "10px" }}
+          style={{ width: "auto", height: "40px", fontSize: "10px", padding: "2px" }}
         />
-        <ul className="dropdown-menu">
+        <ul className="dropdown-menu animate__animated animate__fadeInLeft animate__faster">
           <li className="px-3 fw-semibold">{displayName}</li>
           <li className="px-3 fw-semibold">{email}</li>
           <li>
