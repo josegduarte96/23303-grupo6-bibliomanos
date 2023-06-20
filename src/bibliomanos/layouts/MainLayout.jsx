@@ -4,9 +4,9 @@ import Navbar from "../components/Navbar"
 function MainLayout({ children }) {
   return (
     <>
-      <div style={{ maxWidth: "100vw", overflow: "hidden" }}>
+      <div className="" style={{ maxWidth: "100vw", minHeight: "100vh", height: "100%", overflow: "hidden" }}>
         <Navbar />
-        {children}
+        <div className="d-flex flex-column animate__animated animate__fadeInDown animate__faster">{children}</div>
         <Footer />
       </div>
     </>

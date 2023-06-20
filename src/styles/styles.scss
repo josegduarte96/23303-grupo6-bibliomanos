@@ -13,6 +13,15 @@ $secondary: #f5e1a7;
   font-weight: bold;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.user-photo {
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
 .main-content {
   height: 40vh;
   width: 100vw;
