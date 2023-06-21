@@ -8,6 +8,9 @@ import {
 import { auth } from "./firebaseConfig"
 
 const provider = new GoogleAuthProvider()
+provider.setCustomParameters({
+  prompt: "select_account",
+})
 
 export const signInWithGoogle = async () => {
   try {
