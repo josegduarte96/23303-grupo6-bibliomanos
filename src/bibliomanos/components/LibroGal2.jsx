@@ -10,7 +10,7 @@ const LibreriaOnline = () => {
   const [booksPerPage] = useState(12)
 
   useEffect(() => {
-    getBooks("romance", setRomanceBooks)
+    getBooks("horror", setRomanceBooks)
     getBooks("juvenile fiction", setChildrenBooks)
   }, [])
 
@@ -29,11 +29,12 @@ const LibreriaOnline = () => {
   }
 
   const getBooks = async (query, callback) => {
-    const { data } = await apiOL.get(`search.json?q=${query}&sort=new&limit=150`)
-    if (data.docs) {
-      const booksWithCovers = data.docs.filter((book) => book.cover_i)
-      callback(booksWithCovers)
-    }
+    const { data } = await apiOL.get(`search.json?subject=${query}`)
+    // if (data.docs) {
+    //   const booksWithCovers = data.docs.filter((book) => book.cover_i)
+    //   callback(booksWithCovers)
+    // }
+    console.log(data)
   }
 
   // const handleSearch = () => {

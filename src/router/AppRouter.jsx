@@ -3,10 +3,10 @@ import { AuthRoutes } from "../auth/routes/AuthRoutes"
 import { BibliomanosRoutes } from "../bibliomanos/routes/BibliomanosRoutes"
 import { useDispatch, useSelector } from "react-redux"
 import { AUTH_STATUS, login, logout } from "../store/auth/authSlice"
-import { CheckingAuth } from "../components/CheckingAuth"
 import { useEffect } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../firebase/firebaseConfig"
+import { Loading } from "../components/Loading"
 
 export const AppRouter = () => {
   const { status } = useSelector((state) => state.auth)
@@ -20,7 +20,7 @@ export const AppRouter = () => {
     })
   }, [])
 
-  if (status == AUTH_STATUS.CHECKING) return <CheckingAuth />
+  if (status == AUTH_STATUS.CHECKING) return <Loading style={{ height: "100vh", width: "100vw" }} />
 
   return (
     <Routes>

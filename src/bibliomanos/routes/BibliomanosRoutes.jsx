@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import Contacto from "../pages/Contacto"
-import { Home } from "../pages/Home"
 import { CategoriesRoutes } from "./CategoriesRoutes"
+import { Home } from "../../components/Home"
 
 export const BibliomanosRoutes = () => {
   return (

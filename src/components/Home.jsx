@@ -1,5 +1,5 @@
-import MainLayout from "../layouts/MainLayout"
-import HeroSection from "../components/HeroSection"
+import HeroSection from "./HeroSection"
+import MainLayout from "./layouts/MainLayout"
 
 export const Home = () => {
   return (
@@ -7,7 +7,7 @@ export const Home = () => {
       <section className="py-3 d-flex justify-content-center align-items-center main-content">
         <h1 className="text-center">¿Buscando tu próxima lectura?</h1>
       </section>
-      <div className="container-sm">
+      <div className="container-fluid">
         <HeroSection />
       </div>
     </MainLayout>

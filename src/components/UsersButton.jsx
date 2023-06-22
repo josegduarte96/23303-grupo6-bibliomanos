@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { signOut } from "../../store/auth/thunks"
+import { signOut } from "../store/auth/thunks"
 
 // eslint-disable-next-line react/prop-types
 function UsersButton({ className }) {

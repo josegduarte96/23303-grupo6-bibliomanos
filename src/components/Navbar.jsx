@@ -1,9 +1,15 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import UsersButton from "./UsersButton"
-import logo from "../../assets/logoempty.png"
+import logo from "../assets/logoempty.png"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useMemo } from "react"
+import { AUTH_STATUS } from "../store/auth/authSlice"
 
 function Navbar() {
+  const { status } = useSelector((state) => state.auth)
+  const isLogged = useMemo(() => status === AUTH_STATUS.AUTHENTICATED, [status])
+
   return (
     <nav
       className="navbar navbar-expand-md fs-5 navbar-dark bg-primary"
@@ -11,13 +17,13 @@ function Navbar() {
       <div className="container-fluid">
         <div className="navbar-brand d-flex align-items-center">
           <img className="img-fluid" src={logo} style={{ width: "50px", height: "45px" }} />
-          <p className="text-center m-0 mx-1 title text-secondary">Bibliomanos</p>
+          <p className="text-center m-0 title text-secondary">Bibliomanos</p>
         </div>
         {/* Navbar Content */}
         <div className="collapse navbar-collapse justify-content-end px-1 py-1" id="navbarSupportedContent">
           <ul className="navbar-nav flex-grow-1 justify-content-center">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+              <Link className="nav-link active" aria-current="page" to={isLogged ? "/" : "/auth"}>
                 Inicio
               </Link>
             </li>
@@ -67,7 +73,7 @@ function Navbar() {
           </form>
         </div>
         {/* Btn menu mobile */}
-        <div className="d-inline-flex">
+        <div className="d-flex">
           <button
             className="navbar-toggler"
             type="button"
@@ -78,7 +84,13 @@ function Navbar() {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <UsersButton className={"d-inline "} />
+          {isLogged ? (
+            <UsersButton className={"d-inline "} />
+          ) : (
+            <Link to="/auth/login" className="btn btn-secondary mx-1">
+              Acceder
+            </Link>
+          )}
         </div>
       </div>
     </nav>
