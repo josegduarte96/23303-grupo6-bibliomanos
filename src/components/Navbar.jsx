@@ -2,38 +2,30 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import UsersButton from "./UsersButton"
 import logo from "../assets/logoempty.png"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { useMemo } from "react"
+import { AUTH_STATUS } from "../store/auth/authSlice"
 
-function Navbar(correoUsuario) {
+function Navbar() {
+  const { status } = useSelector((state) => state.auth)
+  const isLogged = useMemo(() => status === AUTH_STATUS.AUTHENTICATED, [status])
+
   return (
     <nav
-      className="navbar navbar-expand-lg fs-5 navbar-dark bg-primary"
+      className="navbar navbar-expand-md fs-5 navbar-dark bg-primary"
       style={{ boxShadow: "3px 3px 5px rgba(0, 0, 0, .4)" }}>
       <div className="container-fluid">
         <div className="navbar-brand d-flex align-items-center">
           <img className="img-fluid" src={logo} style={{ width: "50px", height: "45px" }} />
-          <p className="text-center m-0 mx-1 title text-secondary">Bibliomanos</p>
-        </div>
-        {/* Btn menu mobile */}
-        <div className="d-inline-flex">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <UsersButton nombreUsuario={correoUsuario} className={"d-block d-sm-none"} />
+          <p className="text-center m-0 title text-secondary">Bibliomanos</p>
         </div>
         {/* Navbar Content */}
-        <div className="collapse navbar-collapse justify-content-end px-3" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse justify-content-end px-1 py-1" id="navbarSupportedContent">
           <ul className="navbar-nav flex-grow-1 justify-content-center">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link className="nav-link active" aria-current="page" to={isLogged ? "/" : "/auth"}>
                 Inicio
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -46,19 +38,19 @@ function Navbar(correoUsuario) {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/categories/science">
                     Ciencia
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/categories/tecnology">
                     Tecnología
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/categories/cinema">
                     Cine
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -67,7 +59,7 @@ function Navbar(correoUsuario) {
                 Contacto
               </a> */}
               {
-                <Link className="nav-link" to={"/contacto"}>
+                <Link className="nav-link" to={"/contact"}>
                   Contacto
                 </Link>
               }
@@ -78,13 +70,27 @@ function Navbar(correoUsuario) {
             <button className="btn btn-outline-warning" type="submit">
               <MagnifyingGlassIcon className="text-white" style={{ width: "20px", height: "25px" }} />
             </button>
-            <UsersButton nombreUsuario={correoUsuario} className={"d-none d-md-block"} />
-            {
-              <Link className="btn btn-secondary" to={"/login"}>
-                Login
-              </Link>
-            }
           </form>
+        </div>
+        {/* Btn menu mobile */}
+        <div className="d-flex">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          {isLogged ? (
+            <UsersButton className={"d-inline "} />
+          ) : (
+            <Link to="/auth/login" className="btn btn-secondary mx-1">
+              Acceder
+            </Link>
+          )}
         </div>
       </div>
     </nav>

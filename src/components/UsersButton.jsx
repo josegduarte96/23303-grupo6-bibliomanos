@@ -1,29 +1,32 @@
-import { UserIcon } from "@heroicons/react/24/solid"
-// eslint-disable-next-line react/prop-types
-import firebaseApp from "../usuariosBD"
-import { getAuth, signOut } from "firebase/auth"
+import { useDispatch, useSelector } from "react-redux"
+import { signOut } from "../store/auth/thunks"
 
-const auth = getAuth(firebaseApp)
-function UsersButton({correoUsuario, className }) {
-  console.log(className)
+// eslint-disable-next-line react/prop-types
+function UsersButton({ className }) {
+  const { displayName, email, photoURL } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
   return (
     <>
-      <div className={"dropstart px-2 ".concat(className)}>
-        <button
-          type="button"
-          className="btn btn-dark rounded-pill"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
+      <div className={"dropstart user-photo ".concat(className)}>
+        {/* <button type="button" className="btn btn-dark rounded-pill" data-bs-toggle="dropdown" aria-expanded="false">
           <UserIcon className="text-white" style={{ width: "20px", height: "25px" }} />
-        </button>
-        <ul className="dropdown-menu">
-          <li className="px-3 fw-semibold">Jose Duarte</li>
-          <li className="px-3 fw-semibold">{correoUsuario}</li>
+        </button> */}
+        <img
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          src={photoURL}
+          className="rounded-circle pointer"
+          alt="photo-user"
+          style={{ width: "auto", height: "40px", fontSize: "10px", padding: "2px" }}
+        />
+        <ul className="dropdown-menu animate__animated animate__fadeInLeft animate__faster">
+          <li className="px-3 fw-semibold">{displayName}</li>
+          <li className="px-3 fw-semibold">{email}</li>
           <li>
             <hr className="dropdown-divider" />
           </li>
           <li className="px-2">
-            <a className="btn btn-danger d-block" href="#" onClick={() => signOut(auth)}>
+            <a onClick={() => dispatch(signOut())} className="btn btn-danger d-block" href="#">
               Cerrar Sesión
             </a>
           </li>

@@ -13,6 +13,25 @@ $secondary: #f5e1a7;
   font-weight: bold;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.user-photo {
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.book-cover {
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+  z-index: 99999;
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+}
+
 .main-content {
   height: 40vh;
   width: 100vw;
