@@ -1,23 +1,31 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import MainLayout from "../../components/layouts/MainLayout"
 import { useState } from "react"
+import { addFavorite } from "../../store/books/thunks"
 
 export const DetalleLibro = () => {
   const { bookSelected, isSearching } = useSelector((state) => state.books)
+  const dispatch = useDispatch()
   const dateOptions = { year: "numeric", month: "long", day: "numeric" }
+
   const dateCreated =
     bookSelected?.created.value && new Date(bookSelected.created.value).toLocaleDateString(undefined, dateOptions)
   const dateModified =
     bookSelected?.last_modified.value &&
     new Date(bookSelected.last_modified.value).toLocaleDateString(undefined, dateOptions)
+
   const [buttonExpanded, setButtonExpanded] = useState(false)
+
   const likeBook = () => {
     setButtonExpanded(true)
     setTimeout(() => {
       setButtonExpanded(false)
     }, 500)
+    dispatch(addFavorite())
   }
+
   if (isSearching) return <MainLayout>Buscando...</MainLayout>
+
   return (
     <MainLayout>
       <div className="row p-3">
@@ -27,6 +35,7 @@ export const DetalleLibro = () => {
             style={{ objectFit: "fill" }}
             src={`https://covers.openlibrary.org/b/id/${bookSelected.covers?.[0]}-L.jpg`}
             alt=""
+            loading="lazy"
           />
           <div style={{ fontSize: "25px" }} className="d-flex p-3 justify-content-evenly w-100">
             <i

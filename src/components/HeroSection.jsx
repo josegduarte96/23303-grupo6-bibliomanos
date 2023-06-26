@@ -1,31 +1,51 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import CarouselBooks from "./CarouselBooks"
 import { useDispatch, useSelector } from "react-redux"
 import { getBooks } from "../store/books/thunks"
+import { AUTH_STATUS } from "../store/auth/authSlice"
 
 function HeroSection() {
   const dispatch = useDispatch()
-  const { tecnology, romance, science } = useSelector((state) => state.books)
+  const { technology, romance, science, favorites } = useSelector((state) => state.books)
+  const { status } = useSelector((state) => state.auth)
   useEffect(() => {
-    dispatch(getBooks())
+    const isValidData = technology.length && romance.length && science.length && favorites.length
+    if (!isValidData) {
+      dispatch(getBooks())
+    }
   }, [])
+  const isLogged = useMemo(() => status === AUTH_STATUS.AUTHENTICATED, [status])
 
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
-        <div className="col-12 col-sm-8">
+        {isLogged && (
+          <div className="col-12 col-sm-8">
+            <section className="py-3">
+              {favorites.length > 0 ? (
+                <>
+                  <h2>Tus Libros favoritos</h2>
+                  <CarouselBooks books={favorites} />
+                </>
+              ) : (
+                <h3 className="text-center">Aún no tienes libros favoritos😟</h3>
+              )}
+            </section>
+          </div>
+        )}
+        <div className="col-12 col-sm-8 border-top">
           <section className="py-3">
             <h2>Tecnología</h2>
-            <CarouselBooks books={tecnology} />
+            <CarouselBooks books={technology} />
           </section>
         </div>
-        <div className="col-12 col-sm-8">
+        <div className="col-12 col-sm-8 border-top">
           <section className="py-3">
             <h2>Romance</h2>
             <CarouselBooks books={romance} />
           </section>
         </div>
-        <div className="col-12 col-sm-8">
+        <div className="col-12 col-sm-8 border-top">
           <section className="py-3">
             <h2>Ciencia</h2>
             <CarouselBooks books={science} />

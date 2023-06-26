@@ -7,7 +7,7 @@ const searchParams = {
 }
 const params = new URLSearchParams(searchParams)
 
-export const loadBooks = async (subject) => {
+export const searchByCategory = async (subject) => {
   if (subject.length === 0) throw Error("Subject is required")
 
   try {
