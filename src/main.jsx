@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom"
 
 //Global Styles
 import "./styles/styles.scss"
+import "toastify-js/src/toastify.css"
 
 ReactDOM.createRoot(document.getElementById("app")).render(
   <React.StrictMode>

@@ -56,3 +56,23 @@ $secondary: #f5e1a7;
   filter: brightness(0.5); /* Establece la opacidad del fondo */
   z-index: -1; /* Coloca la pseudo-clase detrás del contenido del elemento principal */
 }
+
+.heart {
+  transition: transform 0.5s ease;
+}
+
+.heart.expanded {
+  animation: expandHeart 0.5s ease;
+}
+
+@keyframes expandHeart {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

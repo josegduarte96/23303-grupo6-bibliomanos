@@ -1,44 +1,69 @@
-// Detalle de libro, imagen, descripcion, boton de favoritos
-// import {Link} from 'react-router-dom';
-import { Card, Row, Col, Button } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import MainLayout from "../../components/layouts/MainLayout"
+import { useState } from "react"
+import { addFavorite } from "../../store/books/thunks"
 
-function DetalleLibro() {
+export const DetalleLibro = () => {
+  const { bookSelected, isSearching } = useSelector((state) => state.books)
+  const dispatch = useDispatch()
+  const dateOptions = { year: "numeric", month: "long", day: "numeric" }
+
+  const dateCreated =
+    bookSelected?.created.value && new Date(bookSelected.created.value).toLocaleDateString(undefined, dateOptions)
+  const dateModified =
+    bookSelected?.last_modified.value &&
+    new Date(bookSelected.last_modified.value).toLocaleDateString(undefined, dateOptions)
+
+  const [buttonExpanded, setButtonExpanded] = useState(false)
+
+  const likeBook = () => {
+    setButtonExpanded(true)
+    setTimeout(() => {
+      setButtonExpanded(false)
+    }, 500)
+    dispatch(addFavorite())
+  }
+
+  if (isSearching) return <MainLayout>Buscando...</MainLayout>
+
   return (
-    <div className="card mx-auto mt-3 shadow" style={{ maxWidth: "80vw" }}>
-      <Row className="g-0">
-        <Col md={4}>
-          <Card.Img
-            src="https://covers.openlibrary.org/b/id/12547191-L.jpg"
-            className="img-fluid mx-auto"
-            alt="portada del libro"
+    <MainLayout>
+      <div className="row p-3">
+        <div className="col-12 col-md-4 d-flex flex-column">
+          <img
+            className="rounded w-75 h-100 align-self-center"
+            style={{ objectFit: "fill" }}
+            src={`https://covers.openlibrary.org/b/id/${bookSelected.covers?.[0]}-L.jpg`}
+            alt=""
+            loading="lazy"
           />
-        </Col>
-        <Col md={8}>
-          <div className="card-body">
-            <Card.Title>TITULO DEL LIBRO</Card.Title>
-            <Card.Subtitle className="mb-2 text-body-secondary">Autor del libro</Card.Subtitle>
-            <Card.Text>
-              {" "}
-              RESUMEN DEL LIBRO Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolore quidem non neque
-              veniam vel perferendis minima facilis. Vel ratione suscipit dicta voluptate nemo molestias quibusdam
-              inventore quo natus eligendi?{" "}
-            </Card.Text>
-            <div className="d-grid gap-2 d-md-block mt-5">
-              <Button href="#" className="btn mx-2">
-                {" "}
-                Leer
-              </Button>
-
-              <Button href="#" className="btn mx-2">
-                Favoritos
-              </Button>
-            </div>
+          <div style={{ fontSize: "25px" }} className="d-flex p-3 justify-content-evenly w-100">
+            <i
+              onClick={likeBook}
+              className={`heart fa-solid fa-heart text-danger pointer ${buttonExpanded ? "expanded" : ""}`}></i>
+            <i className="fa-solid fa-trash"></i>
           </div>
-        </Col>
-      </Row>
-      {/* <Link to="/DetalleLibro"></Link>  */}
-    </div>
+        </div>
+        <div className="col-12 col-md-6">
+          <div className="d-flex flex-column my-2 flex-sm-row">
+            <h1 className="fst-italic mx-3">{bookSelected?.title}</h1>
+            <cite>{bookSelected?.subject_people?.[0] ?? "Autor desconocido"}</cite>
+          </div>
+          <p className="fs-5">{bookSelected?.description?.value.split(". ")[0] ?? "Sin descripción"}</p>
+          <div className="p-1">
+            <h4>Información del Libro</h4>
+            {bookSelected?.subjects.map((subject, i) => (
+              <span
+                key={subject}
+                className={`badge text-capitalize me-1 mb-2 ${i % 2 == 0 ? "text-bg-primary" : "text-bg-secondary"}`}>
+                {subject}
+              </span>
+            ))}
+            <p>Fecha de publicación: {dateCreated ?? "Desconocido"}</p>
+            <p>Fecha de modificación: {dateModified ?? "Desconocido"}</p>
+          </div>
+        </div>
+      </div>
+    </MainLayout>
   )
 }
-
-export default DetalleLibro

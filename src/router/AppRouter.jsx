@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../firebase/firebaseConfig"
 import { Loading } from "../components/Loading"
+import { getFavorites } from "../store/books/thunks"
 
 export const AppRouter = () => {
   const { status } = useSelector((state) => state.auth)
@@ -17,6 +18,7 @@ export const AppRouter = () => {
       if (!user) return dispatch(logout())
       const { displayName, email, uid, photoURL } = user
       dispatch(login({ displayName, email, uid, photoURL }))
+      dispatch(getFavorites())
     })
   }, [])
 

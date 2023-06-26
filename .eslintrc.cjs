@@ -14,5 +14,6 @@ module.exports = {
     "react-refresh/only-export-components": "warn",
     "react/jsx-no-target-blank": "off",
     "react/prop-types": "off",
+    "react-hooks/exhaustive-deps": "off",
   },
 }
