@@ -1,12 +1,19 @@
 import apiOL from "../api/apiService"
 
+const searchParams = {
+  sort: "new",
+  limit: 200,
+  language: "spa",
+}
+const params = new URLSearchParams(searchParams)
+
 export const loadBooks = async (subject) => {
   if (subject.length === 0) throw Error("Subject is required")
 
   try {
     const {
       data: { docs },
-    } = await apiOL.get(`search.json?subject=${subject}`)
+    } = await apiOL.get(`search.json?subject=${subject}`, { params })
 
     return docs
       .filter((doc) => doc.cover_i)

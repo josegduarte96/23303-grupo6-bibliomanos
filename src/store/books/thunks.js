@@ -1,9 +1,10 @@
 import apiOL from "../../api/apiService"
 import { loadBooks } from "../../helpers/loadBooks"
+import { setBookSelected } from "./booksSlice"
 import { setBooks, setIsSearching } from "./booksSlice"
 
 export const getBooks = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(setIsSearching(true))
 
     const [romance, tecnology, science] = await Promise.all([
@@ -16,8 +17,13 @@ export const getBooks = () => {
 }
 
 export const getBookByKey = (bookKey) => {
-  return async (dispatch, getState) => {
-    const data = await apiOL.get(`${bookKey}.json`)
-    console.log(data)
+  return async (dispatch) => {
+    dispatch(setIsSearching(true))
+    try {
+      const { data } = await apiOL.get(`${bookKey}.json`)
+      dispatch(setBookSelected(data))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

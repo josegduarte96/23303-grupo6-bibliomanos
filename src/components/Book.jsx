@@ -1,10 +1,13 @@
 import { useDispatch } from "react-redux"
 import { getBookByKey } from "../store/books/thunks"
+import { useNavigate } from "react-router"
 
 export const Book = ({ title, bookKey, author, publisher, subject, cover_i }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const findBook = () => {
     dispatch(getBookByKey(bookKey))
+    navigate("/book-details")
   }
 
   return (

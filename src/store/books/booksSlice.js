@@ -6,6 +6,7 @@ export const booksSlice = createSlice({
     tecnology: [],
     science: [],
     isSearching: false,
+    bookSelected: null,
   },
   reducers: {
     setIsSearching(state, action) {
@@ -18,9 +19,13 @@ export const booksSlice = createSlice({
       state.science = science
       state.isSearching = false
     },
+    setBookSelected(state, action) {
+      state.bookSelected = action.payload
+      state.isSearching = false
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setBooks, setIsSearching } = booksSlice.actions
+export const { setBooks, setIsSearching, setBookSelected } = booksSlice.actions
 export default booksSlice.reducer
