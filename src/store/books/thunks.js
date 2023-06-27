@@ -50,6 +50,26 @@ export const addFavorite = () => {
   }
 }
 
+//esta seria la funcion eliminar favoritos - falta configurar firebase
+export const removeFavorite = () => {
+  return async (dispatch, getState) => {
+    const { bookSelected, favorites } = getState().books
+    const { uid } = getState().auth
+    notify("Libro eliminado de favoritos")
+    
+    // Si está eliminado no hace nada, modificar codigo
+    if (favorites.filter((fav) => fav.key !== bookSelected.key).length > 0) 
+    const { title, subject_people, covers, key, subjects: subject } = bookSelected
+    const book = { title, author_name: "Autor Desconocido", cover_i: covers[0], key, subject }
+    if (subject_people?.length > 0) book.author_name = subject_people[0]
+
+    const bookFavorite = { uid, ...book }
+    const newDoc = doc(collection(db, `${uid}/favorites/books`))
+    await setDoc(newDoc, bookFavorite)
+    dispatch(setFavorites([...favorites, bookFavorite]))
+  }
+}
+
 export const getFavorites = () => {
   return async (dispatch, getState) => {
     const { uid } = getState().auth

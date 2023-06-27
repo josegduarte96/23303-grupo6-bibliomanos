@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux"
 import MainLayout from "../../components/layouts/MainLayout"
 import { useState } from "react"
 import { addFavorite } from "../../store/books/thunks"
+import { notify } from "../../components/Notification"
 
 export const DetalleLibro = () => {
-  const { bookSelected, isSearching } = useSelector((state) => state.books)
+  const { bookSelected, isSearching, favorites } = useSelector((state) => state.books)
   const dispatch = useDispatch()
   const dateOptions = { year: "numeric", month: "long", day: "numeric" }
 
@@ -17,10 +18,21 @@ export const DetalleLibro = () => {
   const [buttonExpanded, setButtonExpanded] = useState(false)
 
   const likeBook = () => {
+    if (favorites.filter((fav) => fav.key === bookSelected.key).length > 0) return notify("Este libro ya está en tus favoritos", "linear-gradient(90deg, #F9DE70, #FFFBAB)")
     setButtonExpanded(true)
     setTimeout(() => {
       setButtonExpanded(false)
     }, 500)
+    dispatch(addFavorite())
+  }
+//elimina de favoritos
+  /* const [buttonExpandedTrash, setButtonExpandedTrash] = useState(false) */
+
+  const unLikeBook = () => {
+   /*  setButtonExpandedTrash(true)
+    setTimeout(() => {
+      setButtonExpandedTrash(false)
+    }, 500) */
     dispatch(addFavorite())
   }
 
