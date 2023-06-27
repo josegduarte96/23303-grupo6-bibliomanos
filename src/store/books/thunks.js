@@ -2,9 +2,10 @@ import { collection, doc, setDoc } from "firebase/firestore/lite"
 import { db } from "../../firebase/firebaseConfig"
 import apiOL from "../../api/apiService"
 import { searchByCategory } from "../../helpers/searchBooksByCategory"
-import { setBookSelected, setIsSearching, setBooks, setFavorites } from "./booksSlice"
+import { setBookSelected, setIsSearching, setBooks, setFavorites, setbooksSearched } from "./booksSlice"
 import { loadFavoritesBooks } from "../../helpers/loadFavoritesBooks"
 import { notify } from "../../components/Notification"
+import { searchByTitle } from "../../helpers/searchBookByTitle"
 
 export const getBooks = () => {
   return async (dispatch) => {
@@ -18,6 +19,16 @@ export const getBooks = () => {
     dispatch(setBooks({ romance, technology, science }))
   }
 }
+
+export const getBookByTitle = (inputText) => {
+  return async (dispatch) => {
+   dispatch(setIsSearching(true))
+   const resultados = await searchByTitle(inputText)
+   dispatch(setbooksSearched(resultados))
+   dispatch(setIsSearching(false))
+  }
+}
+
 
 export const getBookByKey = (bookKey) => {
   return async (dispatch) => {

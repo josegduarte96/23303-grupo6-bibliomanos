@@ -2,13 +2,23 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import UsersButton from "./UsersButton"
 import logo from "../assets/logoempty.png"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useMemo, useState } from "react"
 import { AUTH_STATUS } from "../store/auth/authSlice"
+import { useForm } from "../hooks/useForm"
+import { getBookByTitle } from "../store/books/thunks"
 
 function Navbar() {
   const { status } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
   const isLogged = useMemo(() => status === AUTH_STATUS.AUTHENTICATED, [status])
+  const {inputText, onInputChange} = useForm({inputText:""})
+  
+  const onsubmit =(e) => { 
+    e.preventDefault()
+    if (inputText.length == 0) return
+    dispatch(getBookByTitle(inputText))
+   } 
 
   return (
     <nav
@@ -65,8 +75,8 @@ function Navbar() {
               }
             </li>
           </ul>
-          <form className="d-flex mx-1" role="search">
-            <input className="form-control me-2" type="search" placeholder="Buscar un libro" aria-label="Search" />
+          <form className="d-flex mx-1" role="search" onSubmit={onsubmit}>
+            <input name="inputText" onChange={onInputChange} className="form-control me-2" type="search" placeholder="Buscar un libro" aria-label="Search" />
             <button className="btn btn-outline-warning" type="submit">
               <MagnifyingGlassIcon className="text-white" style={{ width: "20px", height: "25px" }} />
             </button>
