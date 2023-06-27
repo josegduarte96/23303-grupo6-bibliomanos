@@ -58,7 +58,7 @@ export const removeFavorite = () => {
     notify("Libro eliminado de favoritos")
     
     // Si está eliminado no hace nada, modificar codigo
-    if (favorites.filter((fav) => fav.key !== bookSelected.key).length > 0) 
+    if (favorites.filter((fav) => fav.key !== bookSelected.key).length > 0) return console.log("Libro eliminado de favoritos")
     const { title, subject_people, covers, key, subjects: subject } = bookSelected
     const book = { title, author_name: "Autor Desconocido", cover_i: covers[0], key, subject }
     if (subject_people?.length > 0) book.author_name = subject_people[0]
