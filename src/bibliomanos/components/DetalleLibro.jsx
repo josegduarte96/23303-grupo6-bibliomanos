@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux"
 import MainLayout from "../../components/layouts/MainLayout"
 import { useState } from "react"
 import { addFavorite } from "../../store/books/thunks"
+import { notify } from "../../components/Notification"
 
 export const DetalleLibro = () => {
-  const { bookSelected, isSearching } = useSelector((state) => state.books)
+  const { bookSelected, isSearching, favorites } = useSelector((state) => state.books)
   const dispatch = useDispatch()
   const dateOptions = { year: "numeric", month: "long", day: "numeric" }
 
@@ -15,13 +16,26 @@ export const DetalleLibro = () => {
     new Date(bookSelected.last_modified.value).toLocaleDateString(undefined, dateOptions)
 
   const [buttonExpanded, setButtonExpanded] = useState(false)
+  
 
   const likeBook = () => {
+    if (favorites.filter((fav) => fav.key === bookSelected.key).length > 0) return notify("Este libro ya está en tus favoritos", "linear-gradient(90deg, #F9DE70, #FFFBAB)")
     setButtonExpanded(true)
     setTimeout(() => {
       setButtonExpanded(false)
     }, 500)
     dispatch(addFavorite())
+  }
+//elimina de favoritos
+  const [buttonExpandedTrash, setButtonExpandedTrash] = useState(false)
+
+  const unLikeBook = () => {
+    if (favorites.filter((fav) => fav.key !== bookSelected.key).length > 0) return notify("Libro eliminado de tus favoritos", "linear-gradient(90deg, #c84e4e, #d5da52)")
+    setButtonExpandedTrash(true)
+    setTimeout(() => {
+      setButtonExpandedTrash(false)
+    }, 500) 
+    dispatch(removeFavorite())
   }
 
   if (isSearching) return <MainLayout>Buscando...</MainLayout>
@@ -41,7 +55,9 @@ export const DetalleLibro = () => {
             <i
               onClick={likeBook}
               className={`heart fa-solid fa-heart text-danger pointer ${buttonExpanded ? "expanded" : ""}`}></i>
-            <i className="fa-solid fa-trash"></i>
+            <i 
+            onClick={unLikeBook}
+            className={`trash fa-solid fa-trash text-dark pointer ${buttonExpandedTrash ? "expanded" : ""}`}></i>
           </div>
         </div>
         <div className="col-12 col-md-6">
