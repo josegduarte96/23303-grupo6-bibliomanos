@@ -22,8 +22,8 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar navbar-expand-md fs-5 navbar-dark bg-primary"
-      style={{ boxShadow: "3px 3px 5px rgba(0, 0, 0, .4)" }}>
+      className="navbar navbar-expand-md fs-5 navbar-dark bg-primary position-fixed container-fluid mb-4"
+      style={{ boxShadow: "3px 3px 5px rgba(0, 0, 0, .4)", zIndex:"9999" }}>
       <div className="container-fluid">
         <div className="navbar-brand d-flex align-items-center">
           <img className="img-fluid" src={logo} style={{ width: "50px", height: "45px" }} />

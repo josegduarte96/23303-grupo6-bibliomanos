@@ -6,7 +6,7 @@ import { AUTH_STATUS } from "../store/auth/authSlice"
 
 function HeroSection() {
   const dispatch = useDispatch()
-  const { technology, romance, science, favorites } = useSelector((state) => state.books)
+  const { technology, romance, science, favorites, isSearching } = useSelector((state) => state.books)
   const { status } = useSelector((state) => state.auth)
   useEffect(() => {
     const isValidData = technology.length && romance.length && science.length && favorites.length
@@ -15,6 +15,7 @@ function HeroSection() {
     }
   }, [])
   const isLogged = useMemo(() => status === AUTH_STATUS.AUTHENTICATED, [status])
+  const isLoading = useMemo(() => isSearching, [isSearching])
 
   return (
     <div className="container-fluid">
@@ -28,7 +29,13 @@ function HeroSection() {
                   <CarouselBooks books={favorites} />
                 </>
               ) : (
-                <h3 className="text-center">Aún no tienes libros favoritos😟</h3>
+                
+                  isLoading ? 
+                  <h1>
+                    Cargando...
+                  </h1>
+                  : <h3 className="text-center">Aún no tienes libros favoritos😟</h3>  
+                                
               )}
             </section>
           </div>

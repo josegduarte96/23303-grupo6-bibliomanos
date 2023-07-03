@@ -29,6 +29,7 @@ export const booksSlice = createSlice({
       state.isSearching = false
     },
     setFavorites(state, action) {
+      state.isSearching = false
       state.favorites = action.payload
     },
   },

@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, updateDoc } from "firebase/firestore/lite"
+import { collection, deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore/lite"
 import { db } from "../../firebase/firebaseConfig"
 import apiOL from "../../api/apiService"
 import { searchByCategory } from "../../helpers/searchBooksByCategory"
@@ -44,6 +44,7 @@ export const getBookByKey = (bookKey) => {
 
 export const addFavorite = () => {
   return async (dispatch, getState) => {
+    dispatch(setIsSearching(true))
     const { bookSelected, favorites } = getState().books
     const { uid } = getState().auth
     notify("Libro agregado a favoritos")
@@ -57,32 +58,14 @@ export const addFavorite = () => {
     const bookFavorite = { uid, ...book }
     const newDoc = doc(collection(db, `${uid}/favorites/books`))
     await setDoc(newDoc, bookFavorite)
+    console.log ([...favorites, bookFavorite])
     dispatch(setFavorites([...favorites, bookFavorite]))
   }
 }
 
-//esta seria la funcion eliminar favoritos - falta configurar firebase
-/* export const removeFavorite = () => {
-  return async (dispatch, getState) => {
-    const { bookSelected, favorites } = getState().books
-    const { uid } = getState().auth
-    notify("Libro eliminado de favoritos")
-    
-    // Si está eliminado no hace nada, modificar codigo
-    if (favorites.filter((fav) => fav.key !== bookSelected.key).length > 0) return console.log("Libro eliminado de favoritos")
-    const { title, subject_people, covers, key, subjects: subject } = bookSelected
-    const book = { title, author_name: "Autor Desconocido", cover_i: covers[0], key, subject }
-    if (subject_people?.length > 0) book.author_name = subject_people[0]
-
-    const bookFavorite = { uid, ...book }
-    const newDoc = doc(collection(db, `${uid}/favorites/books`))
-    await setDoc(newDoc, bookFavorite)
-    dispatch(setFavorites([...favorites, bookFavorite]))
-  }
-} */
-
   export const removeFavorite = () => {
     return async (dispatch, getState) => {
+      dispatch(setIsSearching(true))
       const { bookSelected, favorites } = getState().books;
       const { uid } = getState().auth;
   
@@ -92,9 +75,11 @@ export const addFavorite = () => {
       }
   
       const updatedFavorites = favorites.filter((fav) => fav.key !== bookSelected.key);
-  
-      const favoritesFirebase = doc(db, `${uid}/favorites`);
-      await updateDoc(favoritesFirebase, { books: updatedFavorites });
+      
+      await deleteDoc(doc(db, `${uid}/favorites/books/${bookSelected.uid}`)) 
+
+     // const favoritesFirebase = doc(db, `${uid}/favorites`);
+     // await updateDoc(favoritesFirebase, { books: updatedFavorites });
   
       dispatch(setFavorites(updatedFavorites));
   
@@ -105,6 +90,7 @@ export const addFavorite = () => {
 
 export const getFavorites = () => {
   return async (dispatch, getState) => {
+    dispatch(setIsSearching(true))
     const { uid } = getState().auth
     const favorites = await loadFavoritesBooks(uid)
     dispatch(setFavorites(favorites))

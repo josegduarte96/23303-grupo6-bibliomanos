@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
 import MainLayout from "../../components/layouts/MainLayout"
 import { useState } from "react"
-import { addFavorite } from "../../store/books/thunks"
+import { addFavorite, removeFavorite } from "../../store/books/thunks"
 import { notify } from "../../components/Notification"
 
 export const DetalleLibro = () => {
   const { bookSelected, isSearching, favorites } = useSelector((state) => state.books)
+  // CORREGIR - agregar linea: si el bookselected es igual a null mostrar pantalla principal o mostrar leyenda que diga "no hay ningun libro seleccionado"
   const dispatch = useDispatch()
   const dateOptions = { year: "numeric", month: "long", day: "numeric" }
 
@@ -17,9 +18,9 @@ export const DetalleLibro = () => {
 
   const [buttonExpanded, setButtonExpanded] = useState(false)
   
-
-  const likeBook = () => {
+    const likeBook = () => {
     if (favorites.filter((fav) => fav.key === bookSelected.key).length > 0) return notify("Este libro ya está en tus favoritos", "linear-gradient(90deg, #F9DE70, #FFFBAB)")
+    if (isSearching) return 
     setButtonExpanded(true)
     setTimeout(() => {
       setButtonExpanded(false)
@@ -30,7 +31,7 @@ export const DetalleLibro = () => {
   const [buttonExpandedTrash, setButtonExpandedTrash] = useState(false)
 
   const unLikeBook = () => {
-    if (!favorites.some((fav) => fav.key === bookSelected.key)) return notify("Este libro no está entre tus favoritos. No puedes eliminarlo de la lista.", "linear-gradient(#f5e1a7, #F2511F)");
+    if (isSearching) return 
     setButtonExpandedTrash(true)
     setTimeout(() => {
       setButtonExpandedTrash(false)
