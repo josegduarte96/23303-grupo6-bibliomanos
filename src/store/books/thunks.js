@@ -62,7 +62,7 @@ export const addFavorite = () => {
 }
 
 //esta seria la funcion eliminar favoritos - falta configurar firebase
-export const removeFavorite = () => {
+/* export const removeFavorite = () => {
   return async (dispatch, getState) => {
     const { bookSelected, favorites } = getState().books
     const { uid } = getState().auth
@@ -79,7 +79,33 @@ export const removeFavorite = () => {
     await setDoc(newDoc, bookFavorite)
     dispatch(setFavorites([...favorites, bookFavorite]))
   }
-}
+} */
+
+export const removeFavorite = () => {
+  return async (dispatch, getState) => {
+    const { bookSelected, favorites } = getState().books
+    const { uid } = getState().auth
+
+    // Verificar si el libro está en favoritos
+    const isBookInFavorites = favorites.some((fav) => fav.key === bookSelected.key)
+
+    if (!isBookInFavorites) 
+      return console.log("Este libro no está entre tus favoritos. No puedes eliminarlo de la lista.")
+    }
+
+    // Filtrar la lista de favoritos para excluir el libro seleccionado
+    const updatedFavorites = favorites.filter((fav) => fav.key !== bookSelected.key)
+
+    // Eliminar el libro específico del documento favorites en Firestore
+    const favoritesDocRef = doc(db, `${uid}/favorites`)
+    await updateDoc(favoritesDocRef, { books: updatedFavorites })
+
+    // Actualizar el estado en Redux con la lista de favoritos actualizada
+    dispatch(setFavorites(updatedFavorites))
+
+    notify("Libro eliminado de favoritos")
+  }
+
 
 export const getFavorites = () => {
   return async (dispatch, getState) => {
