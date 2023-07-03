@@ -30,7 +30,7 @@ export const DetalleLibro = () => {
   const [buttonExpandedTrash, setButtonExpandedTrash] = useState(false)
 
   const unLikeBook = () => {
-    if (favorites.filter((fav) => fav.key !== bookSelected.key).length > 0) return notify("Libro eliminado de tus favoritos", "linear-gradient(90deg, #c84e4e, #d5da52)")
+    if (!favorites.some((fav) => fav.key === bookSelected.key)) return notify("Este libro no está entre tus favoritos. No puedes eliminarlo de la lista.", "linear-gradient(#f5e1a7, #F2511F)");
     setButtonExpandedTrash(true)
     setTimeout(() => {
       setButtonExpandedTrash(false)
