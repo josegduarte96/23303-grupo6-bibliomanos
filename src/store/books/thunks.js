@@ -1,4 +1,4 @@
-import { collection, doc, setDoc } from "firebase/firestore/lite"
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore/lite"
 import { db } from "../../firebase/firebaseConfig"
 import apiOL from "../../api/apiService"
 import { searchByCategory } from "../../helpers/searchBooksByCategory"
@@ -81,31 +81,27 @@ export const addFavorite = () => {
   }
 } */
 
-export const removeFavorite = () => {
-  return async (dispatch, getState) => {
-    const { bookSelected, favorites } = getState().books
-    const { uid } = getState().auth
-
-    // Verificar si el libro está en favoritos
-    const isBookInFavorites = favorites.some((fav) => fav.key === bookSelected.key)
-
-    if (!isBookInFavorites) 
-      return console.log("Este libro no está entre tus favoritos. No puedes eliminarlo de la lista.")
-    }
-
-    // Filtrar la lista de favoritos para excluir el libro seleccionado
-    const updatedFavorites = favorites.filter((fav) => fav.key !== bookSelected.key)
-
-    // Eliminar el libro específico del documento favorites en Firestore
-    const favoritesDocRef = doc(db, `${uid}/favorites`)
-    await updateDoc(favoritesDocRef, { books: updatedFavorites })
-
-    // Actualizar el estado en Redux con la lista de favoritos actualizada
-    dispatch(setFavorites(updatedFavorites))
-
-    notify("Libro eliminado de favoritos")
-  }
-
+  export const removeFavorite = () => {
+    return async (dispatch, getState) => {
+      const { bookSelected, favorites } = getState().books;
+      const { uid } = getState().auth;
+  
+      if (!favorites.some((fav) => fav.key === bookSelected.key)) {
+        console.log("No existe entre favoritos");
+        return;
+      }
+  
+      const updatedFavorites = favorites.filter((fav) => fav.key !== bookSelected.key);
+  
+      const favoritesFirebase = doc(db, `${uid}/favorites`);
+      await updateDoc(favoritesFirebase, { books: updatedFavorites });
+  
+      dispatch(setFavorites(updatedFavorites));
+  
+      notify("Libro eliminado de favoritos");
+    };
+  };
+  
 
 export const getFavorites = () => {
   return async (dispatch, getState) => {
