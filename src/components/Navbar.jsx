@@ -26,8 +26,10 @@ function Navbar() {
       style={{ boxShadow: "3px 3px 5px rgba(0, 0, 0, .4)", zIndex:"9999" }}>
       <div className="container-fluid">
         <div className="navbar-brand d-flex align-items-center">
+        <Link className="nav-link active" aria-current="page" to={isLogged ? "/" : "/auth"}>
           <img className="img-fluid" src={logo} style={{ width: "50px", height: "45px" }} />
-          <p className="text-center m-0 title text-secondary">Bibliomanos</p>
+          <p className="text-center m-0 title text-secondary d-none d-sm-inline"> &nbsp;Bibliomanos</p>
+        </Link>
         </div>
         {/* Navbar Content */}
         <div className="collapse navbar-collapse justify-content-end px-1 py-1" id="navbarSupportedContent">
