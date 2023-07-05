@@ -37,7 +37,7 @@ const CarouselBooks = ({ books }) => {
       <i
         ref={button}
         style={{ fontSize: "40px" }}
-        className="fa-solid fa-angle-left text-warning align-self-center mx-1"
+        className="fa-solid fa-angle-left text-warning align-self-center mx-1 pointer"
       />
       <Glider
         hasArrows
@@ -65,7 +65,7 @@ const CarouselBooks = ({ books }) => {
       <i
         ref={buttonNext}
         style={{ fontSize: "40px" }}
-        className="fa-solid fa-angle-right text-warning align-self-center mx-1"
+        className="fa-solid fa-angle-right text-warning align-self-center mx-1 pointer"
       />
     </div>
   )
