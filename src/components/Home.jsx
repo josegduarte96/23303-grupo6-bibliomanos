@@ -1,3 +1,4 @@
+import Cookies from "./Cookies"
 import HeroSection from "./HeroSection"
 import MainLayout from "./layouts/MainLayout"
 
@@ -9,6 +10,7 @@ export const Home = () => {
       </section>
       <div className="container-fluid">
         <HeroSection />
+        <Cookies />
       </div>
     </MainLayout>
   )
