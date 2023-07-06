@@ -1,6 +1,6 @@
 import Glider from "react-glider"
 import "glider-js/glider.min.css"
-import { useMemo, useRef } from "react"
+import { useMemo } from "react"
 import { Book } from "./Book"
 import { useSelector } from "react-redux"
 import { Loading } from "./Loading"
@@ -14,42 +14,32 @@ const CarouselBooks = ({ books }) => {
     settings: {
       slidesToShow: "3",
       slidesToScroll: "auto",
-      itemWidth: 125,
+      itemWidth: 105,
       duration: 0.25,
     },
   }
   const md = {
     breakpoint: 1120,
     settings: {
-      slidesToShow: "4",
+      slidesToShow: "5",
       slidesToScroll: "auto",
-      itemWidth: 250,
+      itemWidth: 150,
       duration: 0.25,
     },
   }
   const responsiveSlides = [sm, md]
-  const button = useRef()
-  const buttonNext = useRef()
+  // const button = useRef()
+  // const buttonNext = useRef()
 
   if (loading) return <Loading />
   return (
     <div className="d-flex justify-content-center p-4">
-      <i
+      {/* <i
         ref={button}
         style={{ fontSize: "40px" }}
         className="fa-solid fa-angle-left text-warning align-self-center mx-1 pointer"
-      />
-      <Glider
-        hasArrows
-        hasDots
-        draggable
-        slidesToShow={1}
-        slidesToScroll={"auto"}
-        responsive={responsiveSlides}
-        arrows={{
-          prev: button.current,
-          next: buttonNext.current,
-        }}>
+      /> */}
+      <Glider hasArrows hasDots draggable slidesToShow={1} slidesToScroll={"auto"} responsive={responsiveSlides}>
         {books.map((book) => (
           <Book
             key={book.key}
@@ -62,11 +52,11 @@ const CarouselBooks = ({ books }) => {
           />
         ))}
       </Glider>
-      <i
+      {/* <i
         ref={buttonNext}
         style={{ fontSize: "40px" }}
         className="fa-solid fa-angle-right text-warning align-self-center mx-1 pointer"
-      />
+      /> */}
     </div>
   )
 }

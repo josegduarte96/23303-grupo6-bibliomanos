@@ -8,8 +8,8 @@ import { AUTH_STATUS } from "../../store/auth/authSlice"
 
 const LoginPage = () => {
   const { onInputChange, email, password } = useForm({
-    email: "jose@gmail.com",
-    password: "123456",
+    email: "",
+    password: "",
   })
 
   const { status, errorMessage } = useSelector((state) => state.auth)
@@ -42,6 +42,7 @@ const LoginPage = () => {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            placeholder="tuemail@ejemplo.com"
           />
         </div>
         <div className="mb-1">
@@ -55,6 +56,7 @@ const LoginPage = () => {
             onChange={onInputChange}
             type="password"
             className="form-control"
+            placeholder="...."
             id="exampleInputPassword1"
           />
         </div>

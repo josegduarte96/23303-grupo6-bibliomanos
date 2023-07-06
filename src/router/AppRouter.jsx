@@ -7,14 +7,13 @@ import { useEffect } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../firebase/firebaseConfig"
 import { Loading } from "../components/Loading"
-import { getBookByTitle, getFavorites } from "../store/books/thunks"
+import { getFavorites } from "../store/books/thunks"
 
 export const AppRouter = () => {
   const { status } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
-   dispatch(getBookByTitle())
     onAuthStateChanged(auth, async (user) => {
       if (!user) return dispatch(logout())
       const { displayName, email, uid, photoURL } = user

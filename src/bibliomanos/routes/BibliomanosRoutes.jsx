@@ -1,8 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import Contacto from "../pages/Contacto"
+
 import { CategoriesRoutes } from "./CategoriesRoutes"
 import { Home } from "../../components/Home"
 import { DetalleLibro } from "../components/DetalleLibro"
+import { Contacto } from "../pages/Contacto"
 
 export const BibliomanosRoutes = () => {
   return (
