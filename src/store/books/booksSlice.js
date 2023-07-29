@@ -11,7 +11,7 @@ export const booksSlice = createSlice({
     bookSelected: null,
   },
   reducers: {
-    setbooksSearched(state, action){
+    setbooksSearched(state, action) {
       state.booksSearched = action.payload
     },
     setIsSearching(state, action) {
@@ -26,7 +26,6 @@ export const booksSlice = createSlice({
     },
     setBookSelected(state, action) {
       state.bookSelected = action.payload
-      state.isSearching = false
     },
     setFavorites(state, action) {
       state.isSearching = false

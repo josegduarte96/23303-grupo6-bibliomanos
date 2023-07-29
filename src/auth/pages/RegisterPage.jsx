@@ -8,9 +8,9 @@ import { AUTH_STATUS } from "../../store/auth/authSlice"
 
 const RegisterPage = () => {
   const { onInputChange, nombre, email, password } = useForm({
-    nombre: "Jose",
-    email: "jose@gmail.com",
-    password: "123456",
+    nombre: "",
+    email: "",
+    password: "",
   })
   const dispatch = useDispatch()
   const { status, errorMessage } = useSelector((state) => state.auth)
